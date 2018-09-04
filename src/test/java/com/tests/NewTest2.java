@@ -1,5 +1,8 @@
 package com.tests;
 
+import org.testng.annotations.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -14,20 +17,30 @@ import org.testng.annotations.Test;
 
 public class NewTest2 {
 	WebDriver driver;
-	@Test
-	public void launchChrome()
+	@BeforeMethod
+	public void beforelaunch()
 	{
-		driver=new ChromeDriver();
+	System.out.println("before test");	
+	}
+	@Test
+	public void launchfirefox()
+	{
+	    System.setProperty("webdriver.gecko.driver", "C:\\Softwares\\geckodriver-v0.19.1-win64\\geckodriver.exe");
+	    driver=new FirefoxDriver();
+	    driver=new ChromeDriver();
 		driver.get("http://newtours.demoaut.com/");
 		driver.manage().window().maximize();
 		
-		driver.findElement(By.name("userName")).sendKeys("selenium");
-		driver.findElement(By.name("password")).sendKeys("selenium");
+		driver.findElement(By.name("userName")).sendKeys("tutorial");
+		driver.findElement(By.name("password")).sendKeys("tutorial");
 		driver.findElement(By.name("login")).click();
-		String title=driver.getTitle();
-		Assert.assertEquals(title, "Find a Flight: Mercury Tours:");
-	
 		
+				
+	}
+	@AfterMethod
+	public void aftermethod()
+	{
+		System.out.println("after execution");
 	}
 
 }
